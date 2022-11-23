@@ -10,6 +10,7 @@ christmasfetch
 ```
 
 ## Installation
+- **NOTE:** at the moment, this is a Linux-only tool as it requires /usr/bin to be present. You can likely modify this to fit your OS without any big problems, though!
 - `git clone https://github.com/mattishere/christmasfetch.git && cd christmasfetch`
 - `make install` (note: you may have to run this as root)
 
