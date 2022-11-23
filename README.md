@@ -1,7 +1,7 @@
 # Christmasfetch
 ## *It's the most wonderful time of the year!* | Show off your Linux desktop for Christmas with a simple command-line utility!
 
-![screenshot](assets/screenshot.jpg)
+![screenshot](assets/screenshot.png)
 
 ## Usage
 Usage is as simple as it can get! No configs, no flags, just a terminal and running:
@@ -15,7 +15,7 @@ christmasfetch
 - `make install` (note: you may have to run this as root)
 
 ## Some highlights
-- Over 70 gift ideas (some are quite odd, check the screenshot at the top!)
+- Over 70 gift ideas (some are quite odd! I hope you like alpacas and... land?)
 - Randomly colored lights (`*-*-*-*-*-*-*-*`)
 - A little message on Christmas day :)
 
