@@ -32,7 +32,7 @@ func Present(info Info) {
 
     // Merry Christmas :)
 	merryChristmasMessage := ""
-	if(info.isChristmasDay == true) {
+	if info.isChristmasDay {
 		merryChristmasMessage = colors.Red + "	Merry Christmas :)" + colors.Reset + "\n		- MattIsHere"
 	}
 

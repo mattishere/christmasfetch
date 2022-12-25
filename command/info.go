@@ -19,11 +19,10 @@ type Info struct {
 func GetChristmasDate(currentTime time.Time) time.Time {
 	year := currentTime.Year()
 
+	today := time.Date(year, currentTime.Month(), currentTime.Day(), 0, 0, 0, 0, time.Local)
 	date := time.Date(year, 12, 25, 0, 0, 0, 0, time.Local)
 
-
-	// If Christmas has already happened in a year, return the next Christmas.
-	if currentTime.After(date) {
+	if today.After(date) {
 		date = time.Date(year + 1, 12, 25, 0, 0, 0, 0, time.Local)
 	}
 
@@ -37,11 +36,9 @@ func DaysUntilChristmas(currentTime time.Time, christmasTime time.Time) int {
 	// This makes it into a valid integer by removing the decimals
 	daysInt := math.Floor(days)
 
-	// When it's Christmas, we want to put 0 days just cause
-	if daysInt == 365 {
+	if daysInt == -1 {
 		daysInt = 0
 	}
-
 
 	return int(daysInt)
 }
