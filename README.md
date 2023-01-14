@@ -10,9 +10,12 @@ christmasfetch
 ```
 
 ## Installation
-- **NOTE:** at the moment, this is a Linux-only tool as it requires /usr/bin to be present. You can likely modify this to fit your OS without any big problems, though!
-- `git clone https://github.com/mattishere/christmasfetch.git && cd christmasfetch`
-- `make install` (note: you may have to run this as root)
+The program is now part of the [AUR](https://aur.archlinux.org/packages/christmasfetch), so installing is as easy as doing:
+```
+presaur install christmasfetch
+yay -S christmasfetch
+paru -S christmasfetch
+```
 
 ## Some highlights
 - Over 70 gift ideas (some are quite odd! I hope you like alpacas and... land?)
