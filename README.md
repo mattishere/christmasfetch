@@ -28,9 +28,5 @@ paru -S christmasfetch
 - More information about Christmas
 - More gift ideas
 
-## Uninstallation
-- Go into the cloned repository
-- Run `make uninstall` (note: you may have to run this as root)
-
 ## Merry Christmas!
 I hope you have a lovely Christmas, and I hope you enjoy my little program :)
