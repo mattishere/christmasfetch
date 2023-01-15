@@ -12,6 +12,10 @@ func Format(info Info) {
 	gift := Gift(Theme{colors.Red, colors.Green, colors.White, lights, info})
 
 	fmt.Println(gift + "\n\n")
+
+	if info.isChristmasDay == true {
+		fmt.Println(colors.Red + "		Mery christmas :)\n			- MattHere\n")
+	}
 }
 
 type Theme struct {
