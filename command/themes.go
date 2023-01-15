@@ -4,46 +4,64 @@ import (
 	"christmasfetch/colors"
 	"christmasfetch/utils"
 	"fmt"
+	"strings"
 )
 
 func Format(info Info) {
-	// TODO: Implement support for multiple formats (randomly chosen)
-	Present(info)
+	lights := utils.GenerateLights(7)
+	gift := Gift(Theme{colors.Red, colors.Green, colors.White, lights, info})
+
+	fmt.Println(gift + "\n\n")
+}
+
+type Theme struct {
+	primary string
+	secondary string
+	text string
+	lights string
+	data Info
+}
+
+func Gift(theme Theme) string {
+	art :=
+		`
+	  ${PRIM}_
+	  \\/_    ${SEC}Christmas${PRIM}@${SEC}${YEAR}
+	${SEC}oooo${PRIM}|${SEC}oooo  ${LIGHTS}
+	${SEC}osss${PRIM}|${SEC}ssso  ${PRIM}Is on: ${TEXT}${DAY}
+	${PRIM}----|----  Is in: ${TEXT}${UNTIL} days
+	${SEC}osss${PRIM}|${SEC}ssso  ${PRIM}Today is: ${TEXT}${DATE} 
+	${SEC}oooo${PRIM}|${SEC}oooo  ${PRIM}Gift idea: ${TEXT}${GIFT}`
+
+	final := parseArt(art, theme)
+	return final
+}
+
+type Placeholder struct {
+	placeholder string
+	replacement string
 }
 
 
+func parseArt(art string, theme Theme) string {
+	// Setup all of the placeholders & their replacements
+	var placeholders []Placeholder
+	placeholders = append(placeholders, Placeholder{"${PRIM}", theme.primary})
+	placeholders = append(placeholders, Placeholder{"${SEC}", theme.secondary})
+	placeholders = append(placeholders, Placeholder{"${TEXT}", theme.text})
+	
+	placeholders = append(placeholders, Placeholder{"${LIGHTS}", theme.lights})
 
+	placeholders = append(placeholders, Placeholder{"${YEAR}", fmt.Sprint(theme.data.year)})
+	placeholders = append(placeholders, Placeholder{"${DAY}", theme.data.christmasDay})
+	placeholders = append(placeholders, Placeholder{"${UNTIL}", fmt.Sprint(theme.data.daysUntil)})
+	placeholders = append(placeholders, Placeholder{"${DATE}", theme.data.currentDate})
+	placeholders = append(placeholders, Placeholder{"${GIFT}", theme.data.giftIdea})
 
-// TODO: Implement a cleaner and easier way to add formats
-
-func Present(info Info) {
-	art :=
-	`
-    %s_
-     \\/_    %sChristmas%s@%s%s
-  %soooo%s|%soooo  %s
-  %sosss%s|%sssso  %sIs on: %s%s
-  %s----|----  Is in: %s%s days
-  %sosss%s|%sssso  %sToday is: %s%s 
-  %soooo%s|%soooo  %sGift idea: %s%s
-
-  %s%s`
-
-
-    // Merry Christmas :)
-	merryChristmasMessage := ""
-	if info.isChristmasDay {
-		merryChristmasMessage = colors.Red + "	Merry Christmas :)" + colors.Reset + "\n		- MattIsHere"
+	parsedArt := art
+	for i := range placeholders {
+		curr := placeholders[i]
+		parsedArt = strings.ReplaceAll(parsedArt, curr.placeholder, curr.replacement)	
 	}
-
-
-	fmt.Printf(art,
-			   colors.Red,
-			   colors.Green, colors.Red, colors.Green, fmt.Sprint(info.year),
-			   colors.Green, colors.Red, colors.Green, utils.GenerateLights(7),
-			   colors.Green, colors.Red, colors.Green, colors.Red, colors.White, info.christmasDay,
-			   colors.Red, colors.White, fmt.Sprint(info.daysUntil),
-			   colors.Green, colors.Red, colors.Green, colors.Red, colors.White, info.currentDate,
-			   colors.Green, colors.Red, colors.Green, colors.Red, colors.White, info.giftIdea,
-			   fmt.Sprint(merryChristmasMessage), string("\n\n"))
+	return parsedArt
 }
