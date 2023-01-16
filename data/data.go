@@ -1,4 +1,4 @@
-package command
+package data
 
 import (
 	"math"
@@ -6,13 +6,13 @@ import (
 	"time"
 )
 
-type Info struct {
-	year			int
-	christmasDay	string
-	currentDate		string 
-	daysUntil		int 
-	giftIdea		string
-	isChristmasDay	bool
+type ChristmasData struct {
+	Year			int
+	ChristmasDay	string
+	CurrentDate		string 
+	DaysUntil		int 
+	GiftIdea		string
+	IsChristmasDay	bool
 }
 
 
@@ -74,7 +74,7 @@ func GiftIdea() string {
 		"a pillow",
 		"board games",
 		"games",
-		"speakers",
+		"speakersfalse",
 		"a microphone",
 		"smart home stuff",
 		"a hoodie",

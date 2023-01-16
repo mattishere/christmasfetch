@@ -1,19 +1,20 @@
-package command
+package themes
 
 import (
 	"christmasfetch/colors"
 	"christmasfetch/utils"
+	"christmasfetch/data"
 	"fmt"
 	"strings"
 )
 
-func Format(info Info) {
+func Format(data data.ChristmasData) {
 	lights := utils.GenerateLights(7)
-	gift := Gift(Theme{colors.Red, colors.Green, colors.White, lights, info})
+	gift := Gift(Theme{colors.Red, colors.Green, colors.White, lights, data})
 
 	fmt.Println(gift + "\n\n")
 
-	if info.isChristmasDay == true {
+	if data.IsChristmasDay == true {
 		fmt.Println(colors.Red + "		Mery christmas :)\n			- MattHere\n")
 	}
 }
@@ -23,14 +24,14 @@ type Theme struct {
 	secondary string
 	text string
 	lights string
-	data Info
+	data data.ChristmasData
 }
 
 func Gift(theme Theme) string {
 	art :=
 		`
 	  ${PRIM}_
-	  \\/_    ${SEC}Christmas${PRIM}@${SEC}${YEAR}
+	  \\/_     ${SEC}Christmas${PRIM}@${SEC}${YEAR}
 	${SEC}oooo${PRIM}|${SEC}oooo  ${LIGHTS}
 	${SEC}osss${PRIM}|${SEC}ssso  ${PRIM}Is on: ${TEXT}${DAY}
 	${PRIM}----|----  Is in: ${TEXT}${UNTIL} days
@@ -41,11 +42,13 @@ func Gift(theme Theme) string {
 	return final
 }
 
+
+
+
 type Placeholder struct {
 	placeholder string
 	replacement string
 }
-
 
 func parseArt(art string, theme Theme) string {
 	// Setup all of the placeholders & their replacements
@@ -56,11 +59,11 @@ func parseArt(art string, theme Theme) string {
 	
 	placeholders = append(placeholders, Placeholder{"${LIGHTS}", theme.lights})
 
-	placeholders = append(placeholders, Placeholder{"${YEAR}", fmt.Sprint(theme.data.year)})
-	placeholders = append(placeholders, Placeholder{"${DAY}", theme.data.christmasDay})
-	placeholders = append(placeholders, Placeholder{"${UNTIL}", fmt.Sprint(theme.data.daysUntil)})
-	placeholders = append(placeholders, Placeholder{"${DATE}", theme.data.currentDate})
-	placeholders = append(placeholders, Placeholder{"${GIFT}", theme.data.giftIdea})
+	placeholders = append(placeholders, Placeholder{"${YEAR}", fmt.Sprint(theme.data.Year)})
+	placeholders = append(placeholders, Placeholder{"${DAY}", theme.data.ChristmasDay})
+	placeholders = append(placeholders, Placeholder{"${UNTIL}", fmt.Sprint(theme.data.DaysUntil)})
+	placeholders = append(placeholders, Placeholder{"${DATE}", theme.data.CurrentDate})
+	placeholders = append(placeholders, Placeholder{"${GIFT}", theme.data.GiftIdea})
 
 	parsedArt := art
 	for i := range placeholders {
