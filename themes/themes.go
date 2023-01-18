@@ -2,24 +2,55 @@ package themes
 
 import (
 	"christmasfetch/colors"
-	"christmasfetch/utils"
+	"christmasfetch/config"
 	"christmasfetch/data"
+	"christmasfetch/utils"
 	"fmt"
+	"math/rand"
 	"strings"
 )
 
-func Format(data data.ChristmasData) {
-	lights := utils.GenerateLights(7)
-	gift := Gift(Theme{colors.Red, colors.Green, colors.White, lights, data})
+var (
+	themes = []Theme{}	
+)
 
-	fmt.Println(gift + "\n\n")
+func Format(data data.ChristmasData, config config.Config) {
+	lights := utils.GenerateLights(7, config)
+
+	gift := Properties{primary: colors.Red, secondary: colors.Green, text: colors.White, lights: lights, data: data}
+	tree := Properties{primary: colors.Green, secondary: colors.Red, text: colors.Yellow, lights: lights, data: data}
+	candycane := Properties{primary: colors.Red, secondary: colors.White, text: colors.White, lights: lights, data: data}
+
+	themes = append(themes, 
+		Theme{name: "gift", art: Gift(gift)},
+		Theme{name: "tree", art: Tree(tree)},
+		Theme{name: "candycane", art: Candycane(candycane)},
+	)
+
+	switch config.Theme {
+	case "random":
+		fmt.Println(themes[rand.Intn(len(themes))].art)
+	default:
+		found := false
+		for theme := range themes {
+			if config.Theme == themes[theme].name {
+				fmt.Println(themes[theme].art)
+				found = true
+				break
+			}
+		}
+		if found == false {
+			fmt.Println(Gift(gift))
+		}
+	}
+	fmt.Println("\n\n")
 
 	if data.IsChristmasDay == true {
 		fmt.Println(colors.Red + "		Mery christmas :)\n			- MattHere\n")
 	}
 }
 
-type Theme struct {
+type Properties struct {
 	primary string
 	secondary string
 	text string
@@ -27,7 +58,12 @@ type Theme struct {
 	data data.ChristmasData
 }
 
-func Gift(theme Theme) string {
+type Theme struct {
+	name string
+	art string
+}
+
+func Gift(props Properties) string {
 	art :=
 		`
 	  ${PRIM}_
@@ -38,10 +74,45 @@ func Gift(theme Theme) string {
 	${SEC}osss${PRIM}|${SEC}ssso  ${PRIM}Today is: ${TEXT}${DATE} 
 	${SEC}oooo${PRIM}|${SEC}oooo  ${PRIM}Gift idea: ${TEXT}${GIFT}`
 
-	final := parseArt(art, theme)
+	final := parseArt(art, props)
 	return final
 }
 
+
+
+func Tree(props Properties) string {
+	art :=
+		`
+		 ${TEXT}*
+		${PRIM}/~\
+	       /~~~\	    ${SEC}Christmas${PRIM}@${SEC}${YEAR}
+	      ${PRIM}/~~${SEC}o${PRIM}~~\	    ${LIGHTS}
+	     ${PRIM}/~~~~~~~\	    ${PRIM}Is on: ${TEXT}${DAY}
+	    ${PRIM}/~${SEC}o${PRIM}~~~~~${SEC}o${PRIM}~\	    ${PRIM}Is in: ${TEXT}${UNTIL} days
+           ${PRIM}/~~~~~~~~~~~\    ${PRIM}Today is: ${TEXT}${DATE}
+          ${PRIM}/~~~~${SEC}o${PRIM}~~~~~${SEC}o${PRIM}~~\   ${PRIM}Gift idea: ${TEXT}${GIFT}
+         ${PRIM}/~${SEC}o${PRIM}~~~~~~~~~~~${SEC}o${PRIM}~\
+	 ~~~~~~~~~~~~~~~~~		
+		 `
+
+	final := parseArt(art, props)
+	return final
+}
+
+func Candycane(props Properties) string {
+	art :=
+	`
+	${SEC} _${PRIM}_${SEC}_${PRIM}_	${PRIM}Christmas${SEC}@${PRIM}${YEAR}
+	${SEC}/${PRIM}~${SEC}_${PRIM}_${SEC}~${PRIM}|	${LIGHTS}
+	${PRIM}|${SEC}|  ${PRIM}|${SEC}|	${SEC}Is ${PRIM}on: ${SEC}${DAY}
+	${SEC}|${PRIM}|	${PRIM}Is ${SEC}in: ${PRIM}${UNTIL} ${SEC}days
+	${PRIM}|${SEC}|	${SEC}Today ${PRIM}is: ${SEC}${DATE}
+	${SEC}|${PRIM}|	${PRIM}Gift ${SEC}idea: ${PRIM}${GIFT}
+	`
+
+	final := parseArt(art, props)
+	return final
+}
 
 
 
@@ -50,20 +121,20 @@ type Placeholder struct {
 	replacement string
 }
 
-func parseArt(art string, theme Theme) string {
+func parseArt(art string, props Properties) string {
 	// Setup all of the placeholders & their replacements
 	var placeholders []Placeholder
-	placeholders = append(placeholders, Placeholder{"${PRIM}", theme.primary})
-	placeholders = append(placeholders, Placeholder{"${SEC}", theme.secondary})
-	placeholders = append(placeholders, Placeholder{"${TEXT}", theme.text})
+	placeholders = append(placeholders, Placeholder{"${PRIM}", props.primary})
+	placeholders = append(placeholders, Placeholder{"${SEC}", props.secondary})
+	placeholders = append(placeholders, Placeholder{"${TEXT}", props.text})
 	
-	placeholders = append(placeholders, Placeholder{"${LIGHTS}", theme.lights})
+	placeholders = append(placeholders, Placeholder{"${LIGHTS}", props.lights})
 
-	placeholders = append(placeholders, Placeholder{"${YEAR}", fmt.Sprint(theme.data.Year)})
-	placeholders = append(placeholders, Placeholder{"${DAY}", theme.data.ChristmasDay})
-	placeholders = append(placeholders, Placeholder{"${UNTIL}", fmt.Sprint(theme.data.DaysUntil)})
-	placeholders = append(placeholders, Placeholder{"${DATE}", theme.data.CurrentDate})
-	placeholders = append(placeholders, Placeholder{"${GIFT}", theme.data.GiftIdea})
+	placeholders = append(placeholders, Placeholder{"${YEAR}", fmt.Sprint(props.data.Year)})
+	placeholders = append(placeholders, Placeholder{"${DAY}", props.data.ChristmasDay})
+	placeholders = append(placeholders, Placeholder{"${UNTIL}", fmt.Sprint(props.data.DaysUntil)})
+	placeholders = append(placeholders, Placeholder{"${DATE}", props.data.CurrentDate})
+	placeholders = append(placeholders, Placeholder{"${GIFT}", props.data.GiftIdea})
 
 	parsedArt := art
 	for i := range placeholders {

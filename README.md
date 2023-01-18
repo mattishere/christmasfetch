@@ -3,8 +3,13 @@
 
 ![screenshot](assets/screenshot.png)
 
+## Some highlights
+- Over 70 gift ideas (some are quite odd! I hope you like alpacas and... land?)
+- Colored lights (`*-*-*-*-*-*-*-*`)
+- A little message on Christmas day :)
+
 ## Usage
-Usage is as simple as it can get! No configs, no flags, just a terminal and running:
+Usage is as simple as it can get! No flags, just a terminal and a command:
 ```
 christmasfetch
 ```
@@ -17,10 +22,23 @@ yay -S christmasfetch
 paru -S christmasfetch
 ```
 
-## Some highlights
-- Over 70 gift ideas (some are quite odd! I hope you like alpacas and... land?)
-- Randomly colored lights (`*-*-*-*-*-*-*-*`)
-- A little message on Christmas day :)
+## Configuration
+To start configurating Christmasfetch, begin by running this subcommand:
+```
+christmasfetch --gen-config
+```
+This will generate a `config.json` in your configuration directory (the path will be displayed after running the command).
+
+Currently, the configuration file is extremely simple:
+```json
+{
+    "name": "random",
+    "lights": "individual"
+}
+```
+- The `name` property defines the name of the theme you want to use. Currently, these are the possible options: `"random"`, `"gift"`, `"tree"`, and `"candycane"`.
+- The `lights` property defines the color of the lights (`*-*-*-*-*-*-*-*`). Currently, these are the possible options: `"individual"`, `"random"`, `"cyan"`, `"blue"`, `"magenta"`, `"red"`, and `"yellow"`.
+
 
 ## To do:
 - More themes
