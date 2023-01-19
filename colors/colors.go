@@ -1,15 +1,23 @@
 package colors
 
 
-// Just took these from a library I made (https://github.com/mattishere/Present-Log/blob/main/src/index.ts#L5)
+type Color struct {
+	Name string
+	Color string
+}
 
-var Blue = "\x1b[34m"
-var Yellow = "\x1b[33m"
-var Green = "\x1b[32m"
-var Magenta = "\x1b[35m"
-var Red = "\x1b[31m"
-var Black = "\x1b[30m"
-var White = "\x1b[37m"
-var Cyan = "\x1b[36m"
+var (
+	Blue = Color{Name: "blue", Color: "\x1b[34m"}
+	Yellow = Color{Name: "yellow", Color: "\x1b[33m"}
+	Green = Color{Name: "green", Color: "\x1b[32m"}
+	Magenta = Color{Name: "magenta", Color: "\x1b[35m"}
+	Red = Color{Name: "red", Color: "\x1b[31m"}
+	Black = Color{Name: "black", Color: "\x1b[30m"}
+	White = Color{Name: "white", Color: "\x1b[37m"}
+	Cyan = Color{Name: "cyan", Color: "\x1b[36m"}
+	Reset = Color{Name: "reset", Color: "\x1b[0m"}
 
-var Reset = "\x1b[0m"
+	ColorsList = []Color{
+		Blue, Yellow, Green, Magenta, Red, Black, White, Cyan, Reset,
+	}
+)

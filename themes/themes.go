@@ -46,14 +46,12 @@ func Format(data data.ChristmasData, config config.Config) {
 	fmt.Println("\n\n")
 
 	if data.IsChristmasDay == true {
-		fmt.Println(colors.Red + "		Mery christmas :)\n			- MattHere\n")
+		fmt.Println(colors.Red.Color + "		Mery christmas :)\n			- MattHere\n")
 	}
 }
 
 type Properties struct {
-	primary string
-	secondary string
-	text string
+	primary, secondary, text colors.Color
 	lights string
 	data data.ChristmasData
 }
@@ -124,9 +122,9 @@ type Placeholder struct {
 func parseArt(art string, props Properties) string {
 	// Setup all of the placeholders & their replacements
 	var placeholders []Placeholder
-	placeholders = append(placeholders, Placeholder{"${PRIM}", props.primary})
-	placeholders = append(placeholders, Placeholder{"${SEC}", props.secondary})
-	placeholders = append(placeholders, Placeholder{"${TEXT}", props.text})
+	placeholders = append(placeholders, Placeholder{"${PRIM}", props.primary.Color})
+	placeholders = append(placeholders, Placeholder{"${SEC}", props.secondary.Color})
+	placeholders = append(placeholders, Placeholder{"${TEXT}", props.text.Color})
 	
 	placeholders = append(placeholders, Placeholder{"${LIGHTS}", props.lights})
 
@@ -135,6 +133,10 @@ func parseArt(art string, props Properties) string {
 	placeholders = append(placeholders, Placeholder{"${UNTIL}", fmt.Sprint(props.data.DaysUntil)})
 	placeholders = append(placeholders, Placeholder{"${DATE}", props.data.CurrentDate})
 	placeholders = append(placeholders, Placeholder{"${GIFT}", props.data.GiftIdea})
+
+	for color := range colors.ColorsList {
+		placeholders = append(placeholders, Placeholder{"${" + strings.ToUpper(colors.ColorsList[color].Name) + "}", colors.ColorsList[color].Color})
+	}
 
 	parsedArt := art
 	for i := range placeholders {

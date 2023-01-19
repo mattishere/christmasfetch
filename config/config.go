@@ -76,7 +76,6 @@ func GenerateConfig() {
 			log.Fatal(err)
 		}
 	}
-	
 
-	fmt.Println(colors.Green + "[+] New configuration file made at: " + colors.White + filepath.Join(path, "config.json"))
+	fmt.Println(colors.Green.Color + "[+] New configuration file made at: " + colors.White.Color + filepath.Join(path, "config.json"))
 }

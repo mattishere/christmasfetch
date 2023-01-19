@@ -6,19 +6,19 @@ import (
 	"math/rand"
 )
 
-var options []LightsOption
+var options []colors.Color
 
 // Generates a light pattern with a random color
 func GenerateLights(length int, config config.Config) string {
 	options = append(options,
-		Blue,
-		Yellow,
-		Magenta,
-		Red,
-		Cyan,
+		colors.Blue,
+		colors.Yellow,
+		colors.Magenta,
+		colors.Red,
+		colors.Cyan,
 	)
 
-	colorsList := []string{}
+	var colorsList []colors.Color
 	colorsList = append(colorsList, colors.Cyan, colors.Blue, colors.Magenta, colors.Red, colors.Yellow)
 	
 
@@ -28,15 +28,15 @@ func GenerateLights(length int, config config.Config) string {
 	case "individual":
 		for i := 1; i <= length; i++ {
 			chosenColor := colorsList[rand.Intn(len(colorsList))]
-			lights += chosenColor + "*" + colors.Reset + "-"
+			lights += chosenColor.Color + "*" + colors.Reset.Color + "-"
 		}
 	default:
 		found := false
 		for option := range options {
-			if config.Lights == options[option].name {
-				chosenColor := options[option].color
+			if config.Lights == options[option].Name {
+				chosenColor := options[option].Color
 				for i := 1; i <= length; i++ {
-					lights += chosenColor + "*" + colors.Reset + "-"
+					lights += chosenColor + "*" + colors.Reset.Color + "-"
 				}
 				found = true
 				break
@@ -45,9 +45,9 @@ func GenerateLights(length int, config config.Config) string {
 		if found == false {
 			chosenColor := colorsList[rand.Intn(len(colorsList))]
 			for i := 1; i <= length; i++ {
-				lights += chosenColor + "*" + colors.Reset + "-"
+				lights += chosenColor.Color + "*" + colors.Reset.Color + "-"
 			}
-			lights = lights + chosenColor + "*" + colors.Reset
+			lights = lights + chosenColor.Color + "*" + colors.Reset.Color
 		}
 	}
 
