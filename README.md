@@ -26,7 +26,7 @@ paru -S christmasfetch
 ## Configuration
 To start configurating Christmasfetch, begin by running `christmasfetch --gen-config`.
 
-This command generates any missing configuration files in your **configuration directory**, and the paths will 
+This command generates any missing configuration files in your **configuration directory** (the path to each of them is displayed after running the command).
 
 ![genconfig](assets/gifs/genconfig.gif)
 
