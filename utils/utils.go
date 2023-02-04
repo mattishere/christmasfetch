@@ -2,14 +2,14 @@ package utils
 
 import (
 	"christmasfetch/colors"
-	"christmasfetch/config"
+	"christmasfetch/files"
 	"math/rand"
 )
 
 var options []colors.Color
 
 // Generates a light pattern with a random color
-func GenerateLights(length int, config config.Config) string {
+func GenerateLights(length int, config files.Config) string {
 	options = append(options,
 		colors.Blue,
 		colors.Yellow,

@@ -1,7 +1,7 @@
 package command
 
 import (
-	"christmasfetch/config"
+	"christmasfetch/files"
 	"christmasfetch/data"
 	"christmasfetch/themes"
 	"flag"
@@ -16,11 +16,11 @@ func Run() {
 	flag.Parse()
 
 	if *genConfig == true {
-		config.GenerateConfig()
+		files.GenerateConfig()
 		return
 	}
 
-	config := config.GetConfig()
+	config := files.GetConfig()
 
 	rand.Seed(time.Now().UnixNano())
 	
