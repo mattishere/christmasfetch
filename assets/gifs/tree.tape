@@ -1,4 +1,4 @@
-Output candycane.gif
+Output tree.gif
 
 Set FontSize 40
 
@@ -12,6 +12,6 @@ Set Framerate 60
 Set Theme "Catppuccin Frappe"
 
 Sleep 500ms
-Type "christmasfetch --theme candycane"
+Type "christmasfetch --theme tree"
 Enter
 Sleep 8s
