@@ -12,6 +12,7 @@ import (
 
 func Run() {
 	genConfig := flag.Bool("gen-config", false, "Generate the config (if not present).")
+    theme := flag.String("theme", "", "Select a theme (overrides currently selected theme in config.json)")
 
 	flag.Parse()
 
@@ -38,6 +39,6 @@ func Run() {
 	}
 
 	// Pass the info into the Info struct and use the Format() method to apply a theme and output the final result
-	info := data.ChristmasData{christmasDate.Year(), christmasDate.Weekday().String(), currentDate.Format("Jan 02, 2006"), days, data.GiftIdea(), IsItChristmas}
+	info := data.ChristmasData{christmasDate.Year(), christmasDate.Weekday().String(), currentDate.Format("Jan 02, 2006"), days, data.GiftIdea(), IsItChristmas, *theme}
 	themes.Format(info, config)
 }

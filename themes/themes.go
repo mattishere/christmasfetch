@@ -2,8 +2,8 @@ package themes
 
 import (
 	"christmasfetch/colors"
-	"christmasfetch/files"
 	"christmasfetch/data"
+	"christmasfetch/files"
 	"christmasfetch/utils"
 	"fmt"
 	"math/rand"
@@ -15,18 +15,23 @@ func Format(data data.ChristmasData, config files.Config) {
 
 	themes := files.GetThemes()
 
-	gift := files.Theme{Name: "gift", Art: `
-    ${RED}_
+	gift := files.Theme{Name: "gift", Art: `    ${RED}_
      \\/_    ${GREEN}Christmas${RED}@${GREEN}${YEAR}
   ${GREEN}oooo${RED}|${GREEN}oooo  ${LIGHTS}
   ${GREEN}osss${RED}|${GREEN}ssso  ${RED}Is on: ${WHITE}${DAY}
   ${RED}----|----  Is in: ${WHITE}${UNTIL} days
   ${GREEN}osss${RED}|${GREEN}ssso  ${RED}Today is: ${WHITE}${DATE} 
   ${GREEN}oooo${RED}|${GREEN}oooo  ${RED}Gift idea: ${WHITE}${GIFT}`}
-	
+
 	themes = append(themes)
 
-	switch config.Theme {
+	theme := data.Theme
+	if theme == "" {
+		theme = config.Theme
+	}
+
+    fmt.Println() // Adds a new line at the top.
+	switch theme {
 	case "random":
 		themes = append(themes, gift)
 		selectedTheme := themes[rand.Intn(len(themes))].Art
@@ -37,13 +42,12 @@ func Format(data data.ChristmasData, config files.Config) {
 		// Since Gift is the only internal theme, we want to hard-code it in.
 		if len(themes) == 0 {
 			fmt.Println(parseArt(gift.Art, data, lights))
-		} else if config.Theme == "gift" {
+		} else if theme == "gift" {
 			fmt.Println(parseArt(gift.Art, data, lights))
 		} else {
-			themes = append(themes, gift)
-			for theme := range themes {
-				if config.Theme == themes[theme].Name {
-					fmt.Println(parseArt(themes[theme].Art, data, lights))
+			for i := range themes {
+				if theme == themes[i].Name {
+					fmt.Println(parseArt(themes[i].Art, data, lights))
 					found = true
 					break
 				}
@@ -54,7 +58,7 @@ func Format(data data.ChristmasData, config files.Config) {
 		}
 
 	}
-	fmt.Println("\n\n")
+	fmt.Println() // Adds a new line at the bottom.
 
 	if data.IsChristmasDay == true {
 		fmt.Println(colors.Red.Color + "		Mery christmas :)\n			- MattHere\n" + colors.Reset.Color)
@@ -63,8 +67,8 @@ func Format(data data.ChristmasData, config files.Config) {
 
 type Properties struct {
 	primary, secondary, text colors.Color
-	lights string
-	data data.ChristmasData
+	lights                   string
+	data                     data.ChristmasData
 }
 
 type Placeholder struct {
@@ -90,7 +94,7 @@ func parseArt(art string, data data.ChristmasData, lights string) string {
 	parsedArt := art
 	for i := range placeholders {
 		curr := placeholders[i]
-		parsedArt = strings.ReplaceAll(parsedArt, curr.placeholder, curr.replacement)	
+		parsedArt = strings.ReplaceAll(parsedArt, curr.placeholder, curr.replacement)
 	}
 	return parsedArt
 }

@@ -13,6 +13,7 @@ type ChristmasData struct {
 	DaysUntil		int 
 	GiftIdea		string
 	IsChristmasDay	bool
+    Theme           string
 }
 
 

@@ -71,24 +71,20 @@ func GenerateConfig() {
 		}
 	}
 
-	tree := []byte(`
-     ${YELLOW}*     ${RED}Christmas${GREEN}@${RED}${YEAR}
+	tree := []byte(`     ${YELLOW}*     ${RED}Christmas${GREEN}@${RED}${YEAR}
     ${GREEN}/~\    ${LIGHTS}
    ${GREEN}/~~${MAGENTA}o${GREEN}\   Is on: ${YELLOW}${DAY}
   ${GREEN}/~${CYAN}o${GREEN}~~~\  Is in: ${YELLOW}${UNTIL} days
  ${GREEN}/~~~~~${RED}o${GREEN}~\ Today is: ${YELLOW}${DATE}
-    ${YELLOW}|||    ${GREEN}Gift idea: ${YELLOW}${GIFT}
-		 `)
+    ${YELLOW}|||    ${GREEN}Gift idea: ${YELLOW}${GIFT}`)
 	makeFile(filepath.Join(path, "themes", "tree.theme"), tree)
 
-	candycane := []byte(`
-  ${WHITE} _${RED}_${WHITE}_${RED}_	  ${RED}Christmas${WHITE}@${RED}${YEAR}
+	candycane := []byte(`  ${WHITE} _${RED}_${WHITE}_${RED}_	  ${RED}Christmas${WHITE}@${RED}${YEAR}
   ${WHITE}/${RED}~${WHITE}_${RED}_${WHITE}~${RED}|  ${LIGHTS}
   ${RED}|${WHITE}|  ${RED}|${WHITE}|  ${WHITE}Is ${RED}on: ${WHITE}${DAY}
   ${WHITE}|${RED}|	  ${RED}Is ${WHITE}in: ${RED}${UNTIL} ${WHITE}days
   ${RED}|${WHITE}|	  ${WHITE}Today ${RED}is: ${WHITE}${DATE}
-  ${WHITE}|${RED}|	  ${RED}Gift ${WHITE}idea: ${RED}${GIFT}
-	`)
+  ${WHITE}|${RED}|	  ${RED}Gift ${WHITE}idea: ${RED}${GIFT}`)
 	makeFile(filepath.Join(path, "themes", "candycane.theme"), candycane)
 
 	json, err := json.MarshalIndent(defaultData, "", "")
