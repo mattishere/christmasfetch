@@ -16,8 +16,8 @@ christmasfetch
 ```
 There are also some arguments you can fill:
 - `--gen-config`: generates the configuration files (for more information look [here](#configuration)),
-- `--theme [string]`: Specify the theme you want to be chosen. Works in the same way as the way you define it in `config.json`, however setting the theme like this has a higher priority ("overrides" your configuration file).
-- `--help`: Shows all the subcommands.
+- `--theme [string]`: specify the theme you want to be chosen. Works in the same way as the way you define it in `config.json`, however setting the theme like this has a higher priority ("overrides" your configuration file),
+- `--help`: shows all the subcommands.
 
 ## Installation
 The program is now part of the [AUR](https://aur.archlinux.org/packages/christmasfetch), so installing is as easy as:
