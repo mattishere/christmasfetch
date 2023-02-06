@@ -1,7 +1,7 @@
 # Christmasfetch
 ## *It's the most wonderful time of the year!* | Show off your Linux desktop for Christmas with a simple command-line utility!
 
-![gift](assets/gifs/command.gif)
+![gift](assets/gifs/gift.gif)
 
 ## Some highlights
 - Over 70 gift ideas (some are quite odd! I hope you like alpacas and... land?)
@@ -14,6 +14,10 @@ Usage is as simple as it can get! No flags, just a terminal and a command:
 ```
 christmasfetch
 ```
+There are also some arguments you can fill:
+- `--gen-config`: generates the configuration files (for more information look [here](#configuration)),
+- `--theme [string]`: specify the theme you want to be chosen. Works in the same way as the way you define it in `config.json`, however setting the theme like this has a higher priority ("overrides" your configuration file),
+- `--help`: shows all the subcommands.
 
 ## Installation
 The program is now part of the [AUR](https://aur.archlinux.org/packages/christmasfetch), so installing is as easy as:
@@ -83,7 +87,7 @@ And that's about it! If you save your theme, you can now select it with the `"na
 
 ## The default themes
 ### Gift (Built-in / integrated)
-![gift](assets/gifs/command.gif)
+![gift](assets/gifs/gift.gif)
 
 ### Candycane (`themes/candycane.theme`)
 ![candycane](assets/gifs/candycane.gif)
