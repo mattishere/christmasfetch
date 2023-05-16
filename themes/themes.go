@@ -30,7 +30,7 @@ func Format(data data.ChristmasData, config files.Config) {
 		theme = config.Theme
 	}
 
-    fmt.Println() // Adds a new line at the top.
+	fmt.Println() // Adds a new line at the top.
 	switch theme {
 	case "random":
 		themes = append(themes, gift)
@@ -78,14 +78,14 @@ type Placeholder struct {
 
 func parseArt(art string, data data.ChristmasData, lights string) string {
 	// Setup all of the placeholders & their replacements
-	var placeholders []Placeholder
-	placeholders = append(placeholders, Placeholder{"${LIGHTS}", lights})
-
-	placeholders = append(placeholders, Placeholder{"${YEAR}", fmt.Sprint(data.Year)})
-	placeholders = append(placeholders, Placeholder{"${DAY}", data.ChristmasDay})
-	placeholders = append(placeholders, Placeholder{"${UNTIL}", fmt.Sprint(data.DaysUntil)})
-	placeholders = append(placeholders, Placeholder{"${DATE}", data.CurrentDate})
-	placeholders = append(placeholders, Placeholder{"${GIFT}", data.GiftIdea})
+	placeholders := []Placeholder{
+		{"${LIGHTS}", lights},
+		{"${YEAR}", fmt.Sprint(data.Year)},
+		{"${DAY}", data.ChristmasDay},
+		{"${UNTIL}", fmt.Sprint(data.DaysUntil)},
+		{"${DATE}", data.CurrentDate},
+		{"${GIFT}", data.GiftIdea},
+	}
 
 	for color := range colors.ColorsList {
 		placeholders = append(placeholders, Placeholder{"${" + strings.ToUpper(colors.ColorsList[color].Name) + "}", colors.ColorsList[color].Color})
